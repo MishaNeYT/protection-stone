@@ -1,0 +1,10 @@
+blocks:
+  # Id block
+  DIAMOND_BLOCK:
+    display_name: "Алмазный блок привата"
+    lores:
+      - ""
+      - "Радиус привата {radius}"
+      - "Создатель: {owner}"
+      - ""
+    radius: 10

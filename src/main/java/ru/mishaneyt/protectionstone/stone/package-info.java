@@ -1,0 +1,1 @@
+package ru.mishaneyt.protectionstone.stone;
