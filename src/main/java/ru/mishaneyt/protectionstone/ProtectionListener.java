@@ -32,6 +32,9 @@ public final class ProtectionListener implements ILoadableListener {
       var optionalProtectionRegion = plugin.getProtectionRegionService().getRegionByLocation(blockBreak.getLocation());
       if (optionalProtectionRegion.isPresent()) {
         var protectionRegion = optionalProtectionRegion.get();
+        if (protectionRegion.isMember(player)) {
+          // TODO permission check
+        }
         if (plugin.getProtectionRegionService().removeRegion(protectionRegion.getId())) {
           player.sendMessage("Вы убрали приват");
         }

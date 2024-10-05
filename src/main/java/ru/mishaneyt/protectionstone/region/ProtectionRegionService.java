@@ -17,10 +17,11 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public final class ProtectionRegionService extends FileSectionLoader {
-  private final Map<String, ProtectionRegion> regions = Maps.newConcurrentMap();
+  private final Map<String, ProtectionRegion> regions;
 
   public ProtectionRegionService() {
     super("regions.yml", "regions", true);
+    this.regions = Maps.newConcurrentMap();
   }
 
   @Override
@@ -34,6 +35,7 @@ public final class ProtectionRegionService extends FileSectionLoader {
         regions.put(id, protectionRegion);
       }
     }
+    plugin.getLogger().info("Loaded " + regions.size() + " regions");
   }
 
   @Override

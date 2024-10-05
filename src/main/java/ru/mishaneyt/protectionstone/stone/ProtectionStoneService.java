@@ -12,10 +12,11 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class ProtectionStoneService extends FileSectionLoader {
-  private final Map<Material, ProtectionStone> blocks = Maps.newConcurrentMap();
+  private final Map<Material, ProtectionStone> blocks;
 
   public ProtectionStoneService() {
     super("blocks.yml", "blocks", true);
+    this.blocks = Maps.newConcurrentMap();
   }
 
   @Override
