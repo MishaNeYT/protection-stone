@@ -1,8 +1,1 @@
-regions:
-  awdawd-awdaw-awdawd-awdawd: # id
-    material: DIAMOND_BLOCK
-    min: world, 0, 0, 0
-    max: world, 0, 0, 0
-    members:
-      MishaNeYT: OWNER
-      MishaNeBan: MEMBER
+regions: {}

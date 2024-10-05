@@ -21,8 +21,12 @@ public final class ProtectionRegionService extends FileSectionLoader {
 
   public ProtectionRegionService() {
     super("regions.yml", "regions", true);
+  }
+
+  @Override
+  public void load() {
     for (var id : getSection().getKeys(false)) {
-      var section = getSection();
+      var section = getSection().getConfigurationSection(id);
       if (section == null) return;
       var optionalProtectionRegion = ProtectionRegion.deserialize(id, section.getValues(false));
       if (optionalProtectionRegion.isPresent()) {
@@ -30,6 +34,19 @@ public final class ProtectionRegionService extends FileSectionLoader {
         regions.put(id, protectionRegion);
       }
     }
+  }
+
+  @Override
+  public void unload() {
+    for (var entry : regions.entrySet()) {
+      var id = entry.getKey();
+      var region = entry.getValue();
+      var section = getSection().createSection(id);
+      for (var regionEntry : region.serialize().entrySet()) {
+        section.set(regionEntry.getKey(), regionEntry.getValue());
+      }
+    }
+    save();
   }
 
   public @NotNull CompletableFuture<ProtectionRegion> createRegion(final @NotNull Player owner, final @NotNull Location location, final @NotNull ProtectionStone protectionStone) {

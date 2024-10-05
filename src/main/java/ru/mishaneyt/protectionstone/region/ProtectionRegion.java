@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.jetbrains.annotations.NotNull;
 
@@ -101,8 +102,14 @@ public final class ProtectionRegion implements ConfigurationSerializable {
     var optionalProtectionStone = ProtectionPlugin.getInstance().getProtectionStoneService().getBlockByMaterial(material);
     if (optionalProtectionStone.isPresent()) {
       var protectionStone = optionalProtectionStone.get();
-      var min = LocationSerialization.deserialize((Map<String, Object>) data.get("min"));
-      var max = LocationSerialization.deserialize((Map<String, Object>) data.get("max"));
+      var minSection = data.get("min");
+      var min = (minSection instanceof MemorySection)
+        ? LocationSerialization.deserialize(((MemorySection) minSection).getValues(false))
+        : LocationSerialization.deserialize((Map<String, Object>) minSection);
+      var maxSection = data.get("max");
+      var max = (maxSection instanceof MemorySection)
+        ? LocationSerialization.deserialize(((MemorySection) maxSection).getValues(false))
+        : LocationSerialization.deserialize((Map<String, Object>) maxSection);
       double x = (min.getX() + max.getX()) / 2;
       double y = (min.getY() + max.getY()) / 2;
       double z = (min.getZ() + max.getZ()) / 2;

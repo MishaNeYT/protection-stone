@@ -21,7 +21,8 @@ public class LocationSerialization {
   }
 
   public static @NotNull Location deserialize(final @NotNull Map<String, Object> data) {
-    var world = Bukkit.getWorld((String) data.get("world"));
+    var worldName = (String) data.get("world");
+    var world = Bukkit.getWorld(worldName);
     var x = (double) data.get("x");
     var y = (double) data.get("y");
     var z = (double) data.get("z");
